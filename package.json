@@ -1,8 +1,8 @@
 {
   "name": "express-ws",
-  "version": "5.0.3",
+  "version": "5.0.4",
   "description": "WebSocket endpoints for Express applications",
-  "main": "index.js",
+  "main": "./src/index.js",
   "module": "src/index",
   "scripts": {
     "lint": "eslint src/"
