@@ -4,18 +4,32 @@
  * Here be dragons. */
 
 import http from 'http';
+import https from 'https';
 import express from 'express';
 import ws from 'ws';
+import fs from 'fs';
 
 import websocketUrl from './websocket-url';
 import addWsMethod from './add-ws-method';
 
 export default function expressWs(app, httpServer, options = {}) {
+  // let server = httpServer;
   let server = httpServer;
 
   if (server === null || server === undefined) {
     /* No HTTP server was explicitly provided, create one for our Express application. */
-    server = http.createServer(app);
+    // server = http.createServer(app);
+    if (!options.keyPath || !options.certPath) {
+      throw new Error('Paths to SSL certificate and private key are required.');
+    }
+
+   // This package requires an SSL certificate and private key to create an HTTPS server. You need to pass the paths to these files as options to the expressWs function:
+    const sslOptions = {
+      key: fs.readFileSync(options.keyPath),
+      cert: fs.readFileSync(options.certPath)
+    };
+
+    server = https.createServer(sslOptions, app);
 
     app.listen = function serverListen(...args) {
       return server.listen(...args);

@@ -2,11 +2,31 @@
 
 [WebSocket](https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API) endpoints for [Express](http://expressjs.com/) applications. Lets you define WebSocket endpoints like any other type of route, and applies regular Express middleware. The WebSocket support is implemented with the help of the [ws](https://github.com/websockets/ws) library.
 
+
 ## Installation
 
 `npm install --save express-ws`
 
+## Ssl Certs
+
+`Self-signed certificate and key are generated through openssl and only used for development purposes. `
+
 ## Usage
+This package requires an SSL certificate and private key to create an HTTPS server. You need to pass the paths to these files as options to the expressWs function:
+
+```javascript
+import express from 'express';
+import expressWs from 'your-package';
+
+const app = express();
+
+const options = {
+  keyPath: 'path/to/private-key.pem',
+  certPath: 'path/to/certificate.pem'
+};
+
+expressWs(app, null, options);
+```
 
 __Full documentation can be found in the API section below. This section only shows a brief example.__
 
